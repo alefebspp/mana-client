@@ -1,5 +1,3 @@
-import Main from '@/components'
-
-export default function Home() {
-  return <Main />
+export default function Login() {
+  return <a href="/home">Home</a>
 }
