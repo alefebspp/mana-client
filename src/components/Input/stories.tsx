@@ -6,7 +6,7 @@ const Component = () => {
     <div className="w-[20rem]">
       <Input.Container>
         <Input.Label>Label</Input.Label>
-        <Input.Root />
+        <Input.Root name="test" />
       </Input.Container>
     </div>
   )
