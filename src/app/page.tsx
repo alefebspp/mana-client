@@ -1,3 +1,9 @@
+import LoginForm from '@/components/Forms/LoginForm'
+
 export default function Login() {
-  return <a href="/home">Home</a>
+  return (
+    <div className="w-[100vw] h-[100vh] flex justify-center items-center">
+      <LoginForm />
+    </div>
+  )
 }
