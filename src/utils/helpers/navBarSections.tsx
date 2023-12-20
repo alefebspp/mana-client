@@ -1,19 +1,18 @@
-import { Bookmark, Home } from 'lucide-react'
+import { Home, LayoutDashboard, PlusCircle } from 'lucide-react'
 import { NavBarSectionProps } from '@/components/NavBar/NavBarSection'
 
 const navBarSections: NavBarSectionProps[] = [
   {
     label: 'Início',
-    icon: Home,
+    icon: LayoutDashboard,
     path: '/home'
   },
   {
     label: 'Categorias',
-    icon: Bookmark,
     path: '/categories',
     childrenSections: [
-      { path: '', label: 'Início' },
-      { path: '/create', label: 'Novo' }
+      { path: '', label: 'Início', icon: Home },
+      { path: '/create', label: 'Novo', icon: PlusCircle }
     ]
   }
 ]

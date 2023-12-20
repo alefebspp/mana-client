@@ -18,6 +18,8 @@ module.exports = {
           pastel: '#C3B1E1'
         },
         gray: {
+          primary: '#fafafa',
+          border: '#E5E7EB',
           dark: '#333333'
         }
       }
