@@ -14,7 +14,7 @@ module.exports = {
         purple: {
           primary: '#7752FE',
           dark: '#3F1651',
-          light: '#C3ACD0',
+          light: '#ece6ff',
           pastel: '#C3B1E1'
         },
         gray: {
@@ -22,7 +22,17 @@ module.exports = {
           border: '#E5E7EB',
           dark: '#333333'
         }
+      },
+      padding: {
+        sm: '1.5rem',
+        md: '3rem',
+        lg: '4.5rem'
       }
+    }
+  },
+  variants: {
+    extend: {
+      backgroundColor: ['active']
     }
   },
   plugins: []
