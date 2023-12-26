@@ -38,27 +38,27 @@ function NavBarSection({
         role="section"
         onClick={handleSectionClick}
         className={cn(
-          'w-full text-gray-dark group flex items-center gap-[0.5rem] px-[1rem] pt-[1rem] pb-[1rem] bg-gray-primary cursor-pointer hover:text-purple-primary border-t-2 border-gray-border',
+          'w-full text-gray-dark group flex items-center gap-[0.5rem] px-[1rem] pt-[1rem] pb-[1rem] cursor-pointer hover:text-purple-primary border-t-2 border-gray-border',
           {
             'text-purple-primary': location.includes(path),
             'pb-0': childrenSections
           }
         )}
       >
-        {Icon && <Icon className="w-5 h-5" />}
+        {Icon && <Icon className="w-4 h-4 xl:w-5 xl:h-5" />}
 
         <p
-          className={cn('font-medium text-md', {
-            'uppercase text-sm': childrenSections
+          className={cn('font-medium text-xs xl:text-sm', {
+            'uppercase text-xs xl:text-sm': childrenSections
           })}
         >
           {label}
         </p>
         {childrenSections ? (
           isOpen || sectionIsOpen ? (
-            <ChevronDown className="ml-auto text-gray-dark group-hover:text-purple-primary" />
+            <ChevronDown className="w-4 h-4 xl:w-5 xl:h-5 ml-auto text-gray-dark group-hover:text-purple-primary" />
           ) : (
-            <ChevronUp className="ml-auto text-gray-dark group-hover:text-purple-primary" />
+            <ChevronUp className="w-4 h-4 xl:w-5 xl:h-5 ml-auto text-gray-dark group-hover:text-purple-primary" />
           )
         ) : null}
       </div>
@@ -69,14 +69,14 @@ function NavBarSection({
               key={label}
               onClick={() => router.push(`${path}${childPath}`)}
               className={cn(
-                'flex items-center gap-[0.5rem] font-medium text-sm pt-[1rem] px-[1rem] cursor-pointer hover:text-purple-primary text-gray-dark',
+                'flex items-center gap-[0.5rem] font-medium pt-[1rem] px-[1rem] cursor-pointer hover:text-purple-primary text-gray-dark',
                 {
                   'text-purple-primary': location === `${path}${childPath}`
                 }
               )}
             >
-              {Icon && <Icon className="w-4 h-4" />}
-              <p>{label}</p>
+              {Icon && <Icon className="w-3 h-3 xl:w-4 xl:h-4" />}
+              <p className="text-xs xl:text-sm">{label}</p>
             </li>
           ))}
         </ul>

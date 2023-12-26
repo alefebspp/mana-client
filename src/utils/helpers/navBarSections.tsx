@@ -1,4 +1,4 @@
-import { Home, LayoutDashboard, PlusCircle } from 'lucide-react'
+import { LayoutDashboard, Plus, AlignJustify } from 'lucide-react'
 import { NavBarSectionProps } from '@/components/NavBar/NavBarSection'
 
 const navBarSections: NavBarSectionProps[] = [
@@ -11,8 +11,8 @@ const navBarSections: NavBarSectionProps[] = [
     label: 'Categorias',
     path: '/categories',
     childrenSections: [
-      { path: '', label: 'Início', icon: Home },
-      { path: '/create', label: 'Novo', icon: PlusCircle }
+      { path: '', label: 'Lista', icon: AlignJustify },
+      { path: '/create', label: 'Novo', icon: Plus }
     ]
   }
 ]
