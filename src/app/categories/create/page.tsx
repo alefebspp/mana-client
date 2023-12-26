@@ -1,3 +1,10 @@
-export default function CriarCategoria() {
-  return <h1>CriarCategoriasContent</h1>
+import CreateCategoryForm from '@/components/Forms/CreateCategory'
+import PageLayout from '@/layouts/PageLayout'
+
+export default function CreateCategory() {
+  return (
+    <PageLayout title="Nova categoria">
+      <CreateCategoryForm />
+    </PageLayout>
+  )
 }

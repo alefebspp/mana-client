@@ -17,7 +17,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           ></NavBar.Section>
         ))}
       </NavBar.Root>
-      <div className="flex-grow overflow-y-auto">{children}</div>
+      <main className="flex-grow overflow-y-auto">{children}</main>
     </div>
   )
 }

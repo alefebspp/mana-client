@@ -1,55 +1,58 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { Formik, Form } from 'formik'
-import z, { ZodError } from 'zod'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import z from 'zod'
 
 import Button from '@/components/Button'
 import Input from '@/components/Input'
 
-const ValidationSchema = z.object({
+const schema = z.object({
   email: z.string().email('Email inválido'),
   password: z.string().min(1, 'Digite uma senha')
 })
 
-type FormValues = z.infer<typeof ValidationSchema>
-
 export default function LoginForm() {
   const { push } = useRouter()
-  const validateForm = (values: FormValues) => {
-    try {
-      ValidationSchema.parse(values)
-    } catch (error) {
-      if (error instanceof ZodError) {
-        return error.formErrors.fieldErrors
-      }
-    }
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<z.infer<typeof schema>>({
+    resolver: zodResolver(schema)
+  })
+
+  const onSubmit: SubmitHandler<z.infer<typeof schema>> = async (formData) => {
+    console.log({ formData })
+    push('/home')
   }
 
   return (
-    <Formik<FormValues>
-      initialValues={{ email: '', password: '' }}
-      validate={validateForm}
-      onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          setSubmitting(false)
-          push('/home')
-        }, 400)
-      }}
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="w-full px-[1rem] flex flex-col md:justify-center md:items-center gap-[1rem]"
     >
-      <Form className="w-full px-[1rem] flex flex-col md:justify-center md:items-center gap-[1rem]">
-        <Input.Container className="md:w-[20rem]">
-          <Input.Label>Email</Input.Label>
-          <Input.Root name="email" />
-        </Input.Container>
-        <Input.Container className="md:w-[20rem]">
-          <Input.Label>Senha</Input.Label>
-          <Input.Root name="password" />
-        </Input.Container>
-        <Button type="submit" className="md:w-[20rem]">
-          Login
-        </Button>
-      </Form>
-    </Formik>
+      <Input.Container className="md:w-[20rem]">
+        <Input.Label>Email</Input.Label>
+        <Input.Root
+          register={register}
+          placeholder="exemplo@email.com"
+          name="email"
+        />
+        <Input.Error errors={errors} name="email" />
+      </Input.Container>
+
+      <Input.Container className="md:w-[20rem]">
+        <Input.Label>Senha</Input.Label>
+        <Input.Root register={register} placeholder="******" name="password" />
+        <Input.Error errors={errors} name="password" />
+      </Input.Container>
+
+      <Button type="submit" className="md:w-[20rem]">
+        Login
+      </Button>
+    </form>
   )
 }

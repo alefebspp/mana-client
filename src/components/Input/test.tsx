@@ -11,17 +11,6 @@ const mountComponent = () => {
   )
 }
 
-const fieldMock = {}
-const metaMock = {}
-const helperMock = {}
-
-jest.mock('formik', () => ({
-  ...jest.requireActual('formik'),
-  useField: jest.fn(() => {
-    return [fieldMock, metaMock, helperMock]
-  })
-}))
-
 describe('<Input />', () => {
   it('should render the heading', () => {
     render(mountComponent())

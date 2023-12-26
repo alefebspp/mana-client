@@ -2,10 +2,8 @@ import { PropsWithChildren } from 'react'
 
 function NavBarRoot({ children }: PropsWithChildren) {
   return (
-    <nav className="w-[20rem] h-[100vh] bg-white">
-      <ul className="w-full h-full flex flex-col bg-purple-primary">
-        {children}
-      </ul>
+    <nav className="hidden lg:block w-[14rem] xl:w-[18rem] 2xl:w-[20rem] h-[100vh] border-r-2 border-gray-border">
+      <ul className="w-full h-full flex flex-col">{children}</ul>
     </nav>
   )
 }
