@@ -50,7 +50,7 @@ const Button = ({
   return (
     <button
       className={cn(buttonVariants({ variant, size, className }), {
-        'bg-purple-primary': isLoading
+        'opacity-80': isLoading
       })}
       disabled={isLoading}
       {...props}
