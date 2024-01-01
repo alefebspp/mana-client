@@ -5,7 +5,7 @@ const Component = () => {
   return (
     <Select.Container>
       <Select.Label>Label</Select.Label>
-      <Select.Root name="test" />
+      <Select.Root options={[]} name="test" />
     </Select.Container>
   )
 }
