@@ -6,12 +6,14 @@ type SelectRootProps = SelectHTMLAttributes<HTMLSelectElement> & {
   className?: string
   name: string
   register?: UseFormRegister<any>
+  options: { label: string; value: string }[]
 }
 
 export default function SelectRoot({
   name,
   register,
   placeholder,
+  options,
   ...props
 }: SelectRootProps) {
   return (
@@ -26,7 +28,13 @@ export default function SelectRoot({
       <option value="" disabled hidden>
         {placeholder}
       </option>
-      <option value="laranja">Laranja</option>
+      {options.map((option) => {
+        return (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        )
+      })}
     </select>
   )
 }

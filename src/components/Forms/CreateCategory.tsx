@@ -8,6 +8,9 @@ import Button from '@/components/Button'
 import Input from '@/components/Input'
 import Select from '../Select'
 
+import { Category } from '@/services/types'
+import { createCategory } from '@/lib/actions/categories'
+
 const schema = z.object({
   description: z.string().min(1, 'Descrição necessária'),
   nature: z.enum(['contribution', 'expense'], {
@@ -16,27 +19,51 @@ const schema = z.object({
   belongs_to: z.string()
 })
 
-export default function CreateCategoryForm() {
+interface Props {
+  categories: Category[]
+}
+
+export default function CreateCategoryForm({ categories }: Props) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-    getValues
+    formState: { errors, isSubmitting },
+    reset
   } = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema)
   })
 
   const onSubmit: SubmitHandler<z.infer<typeof schema>> = async (formData) => {
-    console.log({ formData })
+    try {
+      await createCategory(formData)
+      reset()
+    } catch (error) {
+      console.log(error)
+      throw new Error()
+    }
   }
-
-  console.log(getValues())
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="flex-1 flex flex-col items-start p-sm gap-4 md:items-center md:justify-center"
     >
+      <Select.Container className="w-full md:w-[20rem]">
+        <Select.Label>
+          Pertence a <i className="opacity-70">(Opcional)</i>
+        </Select.Label>
+        <Select.Root
+          register={register}
+          placeholder="Pertence a outra categoria"
+          name="belongs_to"
+          options={categories.map((category) => ({
+            label: `${category.code}.${category.description}`,
+            value: category.id
+          }))}
+        />
+        <Select.Error errors={errors} name="belongs_to" />
+      </Select.Container>
+
       <Input.Container className="w-full md:w-[20rem]">
         <Input.Label>Descrição</Input.Label>
         <Input.Root
@@ -46,15 +73,6 @@ export default function CreateCategoryForm() {
         />
         <Input.Error errors={errors} name="description" />
       </Input.Container>
-
-      <Select.Container className="w-full md:w-[20rem]">
-        <Select.Label>{'Pertence a (opcional)'}</Select.Label>
-        <Select.Root
-          placeholder="Pertence a outra categoria"
-          name="belongs_to"
-        />
-        <Select.Error errors={errors} name="belongs_to" />
-      </Select.Container>
 
       <div className="w-full md:w-[20rem] flex flex-col">
         <label className="text-gray-dark text-xs xl:text-sm font-semibold">
@@ -84,7 +102,9 @@ export default function CreateCategoryForm() {
         <Input.Error errors={errors} name="nature" />
       </div>
 
-      <Button className="w-full  md:w-[20rem]">Criar</Button>
+      <Button isLoading={isSubmitting} className="w-full  md:w-[20rem]">
+        Criar
+      </Button>
     </form>
   )
 }
