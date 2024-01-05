@@ -8,6 +8,7 @@ import Button from '@/components/Button'
 import Input from '@/components/Input'
 import Select from '../Select'
 
+
 import { Category } from '@/firebase/collections/categories'
 import { createCategory } from '@/firebase/services/categories'
 
@@ -35,6 +36,7 @@ export default function CreateCategoryForm({ categories }: Props) {
 
   const onSubmit: SubmitHandler<z.infer<typeof schema>> = async (formData) => {
     try {
+
       const response = await createCategory(formData)
 
       if (!response.success) {
@@ -50,7 +52,7 @@ export default function CreateCategoryForm({ categories }: Props) {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex-1 flex flex-col items-start p-sm gap-4 md:items-center md:justify-center"
+      className="h-full flex flex-col items-start p-sm gap-4 md:items-center md:justify-center"
     >
       <Select.Container className="w-full md:w-[20rem]">
         <Select.Label>

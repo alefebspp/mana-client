@@ -1,3 +1,4 @@
+
 import { Category } from '@/firebase/collections/categories'
 import { PenSquare, Trash2 } from 'lucide-react'
 
@@ -10,7 +11,7 @@ type Props = {
 
 const CategoriesTable = ({ baseCategories }: Props) => {
   return (
-    <div className="relative overflow-y-auto pt-sm">
+    <div className="relative overflow-y-auto">
       <table className="w-full text-xs xl:text-sm text-left rtl:text-right text-gray-dark">
         <thead className="text-xs text-gray-dark uppercase bg-purple-light">
           <tr>
