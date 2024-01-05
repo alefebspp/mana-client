@@ -4,7 +4,7 @@ import navBarSections from '../../utils/helpers/navBarSections'
 
 const Component = () => {
   return (
-    <NavBar.Root>
+    <NavBar.Root hidden={false} closeNav={() => null}>
       {navBarSections.map((section) => (
         <NavBar.Section
           key={section.label}
