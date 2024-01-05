@@ -1,11 +1,10 @@
-export const dynamic = 'force-dynamic'
-
+import { getBaseCategories } from '@/firebase/services/categories'
 import CategoriesTable from '@/components/Tables/CategoriesTable'
 
-import { fetchCategories } from '@/services/categories'
-
 export default async function Categories() {
-  const categories = await fetchCategories()
+  const categories = await getBaseCategories()
 
-  return <CategoriesTable baseCategories={categories} />
+  return (
+      <CategoriesTable baseCategories={categories} />
+  )
 }

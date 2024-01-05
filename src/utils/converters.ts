@@ -1,4 +1,4 @@
-import { NatureType } from '@/services/types'
+import { NatureType } from '@/firebase/collections/categories'
 
 export function categoryNatureConverter(nature: NatureType): string {
   const map: Record<NatureType, string> = {

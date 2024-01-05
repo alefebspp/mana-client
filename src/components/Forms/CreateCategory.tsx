@@ -8,15 +8,16 @@ import Button from '@/components/Button'
 import Input from '@/components/Input'
 import Select from '../Select'
 
-import { Category } from '@/services/types'
-import { createCategory } from '@/lib/actions/categories'
+
+import { Category } from '@/firebase/collections/categories'
+import { createCategory } from '@/firebase/services/categories'
 
 const schema = z.object({
   description: z.string().min(1, 'Descrição necessária'),
   nature: z.enum(['contribution', 'expense'], {
     invalid_type_error: 'Selecione uma opção'
   }),
-  belongs_to: z.string()
+  belongs_to: z.string().nullable().default(null)
 })
 
 interface Props {
@@ -35,11 +36,16 @@ export default function CreateCategoryForm({ categories }: Props) {
 
   const onSubmit: SubmitHandler<z.infer<typeof schema>> = async (formData) => {
     try {
-      await createCategory(formData)
+
+      const response = await createCategory(formData)
+
+      if (!response.success) {
+        throw new Error(response.message)
+      }
       reset()
     } catch (error) {
       console.log(error)
-      throw new Error()
+      throw new Error('Erro ao criar nova categoria')
     }
   }
 

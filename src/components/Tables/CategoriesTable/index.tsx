@@ -1,5 +1,6 @@
+
+import { Category } from '@/firebase/collections/categories'
 import { PenSquare, Trash2 } from 'lucide-react'
-import { Category } from '@/services/types'
 
 import { categoryNatureConverter } from '@/utils/converters'
 import { cn } from '@/lib/utils'
