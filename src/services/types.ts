@@ -6,4 +6,5 @@ export interface Category {
   description: string
   nature: NatureType
   belongs_to: string | null
+  hidden: boolean
 }

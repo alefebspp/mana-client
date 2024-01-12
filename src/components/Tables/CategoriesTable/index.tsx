@@ -1,14 +1,16 @@
-import { PenSquare, Trash2 } from 'lucide-react'
+import { PenSquare, RotateCcw, Trash2 } from 'lucide-react'
 import { Category } from '@/services/types'
 
 import { categoryNatureConverter } from '@/utils/converters'
 import { cn } from '@/lib/utils'
+import Link from 'next/link'
 
 type Props = {
   baseCategories: Category[]
+  showHidden?: boolean
 }
 
-const CategoriesTable = ({ baseCategories }: Props) => {
+const CategoriesTable = ({ baseCategories, showHidden }: Props) => {
   return (
     <div className="relative overflow-y-auto">
       <table className="w-full text-xs xl:text-sm text-left rtl:text-right text-gray-dark">
@@ -21,7 +23,7 @@ const CategoriesTable = ({ baseCategories }: Props) => {
               natureza
             </th>
             <th scope="col" className="px-6 py-3 w-[20%]">
-              ação
+              {showHidden ? 'restaurar' : 'ação'}
             </th>
           </tr>
         </thead>
@@ -32,7 +34,11 @@ const CategoriesTable = ({ baseCategories }: Props) => {
               return (
                 <tr key={id} className="bg-white border-b border-purple-light">
                   <th
-                    style={{ paddingLeft: `${codeSplit.length - 1}rem` }}
+                    style={{
+                      paddingLeft: `${
+                        !showHidden ? codeSplit.length - 1 : 0
+                      }rem`
+                    }}
                     scope="row"
                     className={cn(
                       'px-6 py-4 font-normal text-gray-dark whitespace-nowrap',
@@ -48,10 +54,26 @@ const CategoriesTable = ({ baseCategories }: Props) => {
                   <td className="px-6 py-4">
                     {categoryNatureConverter(nature)}
                   </td>
-                  <td className="px-6 py-4 flex items-center gap-4">
-                    <Trash2 className="w-3 h-3 xl:w-4 xl:h-4 cursor-pointer hover:text-purple-primary" />
-                    <PenSquare className="w-3 h-3 xl:w-4 xl:h-4 cursor-pointer hover:text-purple-primary" />
-                  </td>
+                  {belongs_to ? (
+                    <td className="px-6 py-4 flex items-center gap-4">
+                      {showHidden ? (
+                        <Link
+                          href={`/categories/excluded?showDialog=y&ci=${id}`}
+                        >
+                          <RotateCcw className="w-3 h-3 xl:w-4 xl:h-4 cursor-pointer hover:text-purple-primary" />
+                        </Link>
+                      ) : (
+                        <>
+                          <Link href={`/categories?showDialog=y&ci=${id}`}>
+                            <Trash2 className="w-3 h-3 xl:w-4 xl:h-4 cursor-pointer hover:text-purple-primary" />
+                          </Link>
+                          <Link href={`/categories/${id}`}>
+                            <PenSquare className="w-3 h-3 xl:w-4 xl:h-4 cursor-pointer hover:text-purple-primary" />
+                          </Link>
+                        </>
+                      )}
+                    </td>
+                  ) : null}
                 </tr>
               )
             }

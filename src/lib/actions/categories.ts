@@ -8,6 +8,12 @@ interface CreateCategoryRequest {
   nature: NatureType
   belongs_to: string | null
 }
+interface UpdateCategoryRequest {
+  description?: string
+  nature?: NatureType
+  belongs_to?: string
+  hidden?: boolean
+}
 
 export async function createCategory({
   description,
@@ -27,5 +33,21 @@ export async function createCategory({
     })
   })
 
+  revalidatePath('/categories/create')
+}
+
+export async function updateCategory(id: string, data: UpdateCategoryRequest) {
+  await fetch(`http://localhost:3333/categories/${id}`, {
+    method: 'PATCH',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      ...data
+    })
+  })
+
+  revalidatePath('/categories')
   revalidatePath('/categories/create')
 }
