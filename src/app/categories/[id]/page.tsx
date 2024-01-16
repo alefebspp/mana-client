@@ -1,5 +1,3 @@
-export const dynamic = 'force-dynamic'
-
 import CreateCategoryForm from '@/components/Forms/CreateCategory'
 import { fetchCategories, findCategory } from '@/services/categories'
 import { Category } from '@/services/types'

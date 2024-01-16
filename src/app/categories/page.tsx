@@ -1,5 +1,3 @@
-export const dynamic = 'force-dynamic'
-
 import Dialog from '@/components/Dialog'
 import CategoriesTable from '@/components/Tables/CategoriesTable'
 

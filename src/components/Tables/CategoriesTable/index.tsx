@@ -58,16 +58,20 @@ const CategoriesTable = ({ baseCategories, showHidden }: Props) => {
                     <td className="px-6 py-4 flex items-center gap-4">
                       {showHidden ? (
                         <Link
+                          id="restore-category"
                           href={`/categories/excluded?showDialog=y&ci=${id}`}
                         >
                           <RotateCcw className="w-3 h-3 xl:w-4 xl:h-4 cursor-pointer hover:text-purple-primary" />
                         </Link>
                       ) : (
                         <>
-                          <Link href={`/categories?showDialog=y&ci=${id}`}>
+                          <Link
+                            id="delete-category"
+                            href={`/categories?showDialog=y&ci=${id}`}
+                          >
                             <Trash2 className="w-3 h-3 xl:w-4 xl:h-4 cursor-pointer hover:text-purple-primary" />
                           </Link>
-                          <Link href={`/categories/${id}`}>
+                          <Link id="update-category" href={`/categories/${id}`}>
                             <PenSquare className="w-3 h-3 xl:w-4 xl:h-4 cursor-pointer hover:text-purple-primary" />
                           </Link>
                         </>
