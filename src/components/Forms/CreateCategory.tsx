@@ -1,5 +1,6 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import z from 'zod'
@@ -9,7 +10,7 @@ import Input from '@/components/Input'
 import Select from '../Select'
 
 import { Category } from '@/services/types'
-import { createCategory } from '@/lib/actions/categories'
+import { createCategory, updateCategory } from '@/lib/actions/categories'
 
 const schema = z.object({
   description: z.string().min(1, 'Descrição necessária'),
@@ -21,20 +22,35 @@ const schema = z.object({
 
 interface Props {
   categories: Category[]
+  categoryToUpdate?: Category
 }
 
-export default function CreateCategoryForm({ categories }: Props) {
+export default function CreateCategoryForm({
+  categories,
+  categoryToUpdate
+}: Props) {
+  const { push } = useRouter()
+
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
     reset
   } = useForm<z.infer<typeof schema>>({
-    resolver: zodResolver(schema)
+    resolver: zodResolver(schema),
+    defaultValues: categoryToUpdate && {
+      description: categoryToUpdate.description,
+      nature: categoryToUpdate.nature,
+      belongs_to: categoryToUpdate.belongs_to || ''
+    }
   })
 
   const onSubmit: SubmitHandler<z.infer<typeof schema>> = async (formData) => {
     try {
+      if (categoryToUpdate) {
+        await updateCategory(categoryToUpdate.id, formData)
+        return push('/categories')
+      }
       await createCategory(formData)
       reset()
     } catch (error) {
@@ -56,10 +72,17 @@ export default function CreateCategoryForm({ categories }: Props) {
           register={register}
           placeholder="Pertence a outra categoria"
           name="belongs_to"
-          options={categories.map((category) => ({
-            label: `${category.code}.${category.description}`,
-            value: category.id
-          }))}
+          options={categories
+            .filter((category) => {
+              if (categoryToUpdate) {
+                return !category.hidden && category.id != categoryToUpdate.id
+              }
+              return !category.hidden
+            })
+            .map((category) => ({
+              label: `${category.code}.${category.description}`,
+              value: category.id
+            }))}
         />
         <Select.Error errors={errors} name="belongs_to" />
       </Select.Container>
@@ -103,7 +126,7 @@ export default function CreateCategoryForm({ categories }: Props) {
       </div>
 
       <Button isLoading={isSubmitting} className="w-full  md:w-[20rem]">
-        Criar
+        {categoryToUpdate ? 'Atualizar categoria' : 'Criar'}
       </Button>
     </form>
   )
