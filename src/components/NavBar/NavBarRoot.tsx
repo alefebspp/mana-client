@@ -1,7 +1,7 @@
 'use client'
 import { PropsWithChildren } from 'react'
 
-import { X } from 'lucide-react'
+import { Menu } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import Button from '../Button'
 
@@ -28,8 +28,9 @@ function NavBarRoot({ children, hidden, closeNav }: Props) {
           onClick={handleCloseNav}
           variant="ghost"
           size="icon"
+          className="hover:bg-gray-200 rounded-full p-[6px] mr-2"
         >
-          <X className="text-gray-dark" />
+          <Menu className="text-gray-dark" />
         </Button>
       </div>
       <ul className="w-full h-full flex flex-col">{children}</ul>

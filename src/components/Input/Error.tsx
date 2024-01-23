@@ -1,6 +1,6 @@
 import { ErrorMessage } from '@hookform/error-message'
-import { AlertCircle } from 'lucide-react'
 
+import Alert from '../Alert'
 import { cn } from '@/lib/utils'
 
 export interface InputErrorProps {
@@ -20,15 +20,9 @@ export default function InputError({
       name={name}
       message={errors[name]?.message}
       render={({ message }) => (
-        <div
-          className={cn(
-            'flex items-center gap-[0.5rem] mt-[0.5rem] text-xs font-medium text-purple-primary rounded-sm bg-purple-light p-[0.5rem]',
-            className
-          )}
-        >
-          <AlertCircle className="w-4 h-4" />
-          {message}
-        </div>
+        <Alert.Root className={cn('mt-2', className)}>
+          <Alert.Description>{message}</Alert.Description>
+        </Alert.Root>
       )}
     />
   )

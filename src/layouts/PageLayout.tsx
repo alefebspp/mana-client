@@ -34,8 +34,9 @@ export default function PageLayout({ children, title }: Props) {
               onClick={() => setShowNav(true)}
               variant="ghost"
               size="icon"
+              className="hover:bg-gray-200 rounded-full p-[6px] mr-2"
             >
-              <Menu className="text-gray-dark mr-4" />
+              <Menu className="text-gray-dark" />
             </Button>
           )}
           <h1 className="w-fit text-sm md:text-md xl:text-xl text-transparent font-semibold bg-clip-text bg-gradient-to-r from-[#b393d3] to-[#553c9a]">
