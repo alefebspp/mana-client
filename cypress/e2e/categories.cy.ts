@@ -1,6 +1,8 @@
 describe('categories page', () => {
   it('should properly add a category', () => {
-    cy.visit('http://localhost:3000/categories/create')
+    cy.visit('http://localhost:3000/categories')
+
+    cy.get('a').contains('Criar').click()
 
     cy.get('select').select('1.Receitas')
 
@@ -9,8 +11,6 @@ describe('categories page', () => {
     cy.get('input[value=contribution]').check()
 
     cy.get('button').contains('Criar').click()
-
-    cy.visit('http://localhost:3000/categories')
   })
 
   it('should properly load the added ccategory', () => {

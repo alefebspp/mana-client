@@ -4,12 +4,17 @@ import { Menu } from 'lucide-react'
 import NavBar from '@/components/NavBar'
 import navBarSections from '@/utils/helpers/navBarSections'
 import Button from '@/components/Button'
+import Link from 'next/link'
 
 type Props = PropsWithChildren & {
   title: string
+  modalSections?: {
+    path: string
+    label: string
+  }[]
 }
 
-export default function PageLayout({ children, title }: Props) {
+export default function PageLayout({ children, title, modalSections }: Props) {
   const [showNav, setShowNav] = useState(false)
 
   const handleClose = () => setShowNav(false)
@@ -42,6 +47,20 @@ export default function PageLayout({ children, title }: Props) {
           <h1 className="w-fit text-sm md:text-md xl:text-xl text-transparent font-semibold bg-clip-text bg-gradient-to-r from-[#b393d3] to-[#553c9a]">
             {title}
           </h1>
+
+          {modalSections && (
+            <div className="px-8">
+              {modalSections.map((section, index) => (
+                <Link
+                  className="bg-purple-light text-purple-primary font-medium text-sm px-4 py-1 rounded-3xl"
+                  href={section.path}
+                  key={index}
+                >
+                  {section.label}
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
         <div className="w-full h-full p-sm">{children}</div>
       </div>

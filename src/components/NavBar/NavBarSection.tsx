@@ -10,7 +10,12 @@ export interface NavBarSectionProps {
   icon?: ElementType
   label: string
   path: string
-  childrenSections?: { path: string; label: string; icon?: ElementType }[]
+  childrenSections?: {
+    path: string
+    label: string
+    icon?: ElementType
+    openModal?: boolean
+  }[]
 }
 
 function NavBarSection({
@@ -38,22 +43,16 @@ function NavBarSection({
         role="section"
         onClick={handleSectionClick}
         className={cn(
-          'w-full text-gray-dark group flex items-center gap-[0.5rem] px-[1rem] pt-[1rem] pb-[1rem] cursor-pointer hover:text-purple-primary border-t-2 border-gray-border',
+          'w-full text-gray-dark group flex items-center gap-[0.5rem] px-[1rem] py-[1rem] cursor-pointer hover:text-purple-primary border-b-2 border-gray-border',
           {
             'text-purple-primary': location.includes(path),
-            'pb-0': childrenSections
+            'pb-0 border-0': childrenSections && (isOpen || sectionIsOpen)
           }
         )}
       >
-        {Icon && <Icon className="w-4 h-4 xl:w-5 xl:h-5" />}
+        {Icon && <Icon className="w-5 h-5 xl:w-6 xl:h-6" />}
 
-        <p
-          className={cn('font-medium text-xs xl:text-sm', {
-            'uppercase text-xs xl:text-sm': childrenSections
-          })}
-        >
-          {label}
-        </p>
+        <p className="font-medium text-xs xl:text-sm">{label}</p>
         {childrenSections ? (
           isOpen || sectionIsOpen ? (
             <ChevronDown className="w-4 h-4 xl:w-5 xl:h-5 ml-auto text-gray-dark group-hover:text-purple-primary" />
@@ -64,21 +63,23 @@ function NavBarSection({
       </div>
       {childrenSections && (isOpen || sectionIsOpen) ? (
         <ul className="w-full flex flex-col border-b-2 border-gray-border pb-[1rem]">
-          {childrenSections.map(({ label, path: childPath, icon: Icon }) => (
-            <li
-              key={label}
-              onClick={() => router.push(`${path}${childPath}`)}
-              className={cn(
-                'flex items-center gap-[0.5rem] font-medium pt-[1rem] px-[1rem] cursor-pointer hover:text-purple-primary text-gray-dark',
-                {
-                  'text-purple-primary': location === `${path}${childPath}`
-                }
-              )}
-            >
-              {Icon && <Icon className="w-3 h-3 xl:w-4 xl:h-4" />}
-              <p className="text-xs xl:text-sm">{label}</p>
-            </li>
-          ))}
+          {childrenSections
+            .filter((section) => !section.openModal)
+            .map(({ label, path: childPath, icon: Icon }) => (
+              <li
+                key={label}
+                onClick={() => router.push(`${path}${childPath}`)}
+                className={cn(
+                  'flex items-center gap-[0.5rem] font-medium pt-[1rem] px-[1rem] cursor-pointer hover:text-purple-primary text-gray-dark',
+                  {
+                    'text-purple-primary': location === `${path}${childPath}`
+                  }
+                )}
+              >
+                {Icon && <Icon className="w-3 h-3 xl:w-4 xl:h-4" />}
+                <p className="text-xs xl:text-sm">{label}</p>
+              </li>
+            ))}
         </ul>
       ) : null}
     </li>

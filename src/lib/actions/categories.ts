@@ -2,6 +2,7 @@
 
 import { NatureType } from '@/services/types'
 import { revalidatePath } from 'next/cache'
+import { cookies } from 'next/headers'
 
 interface CreateCategoryRequest {
   description: string
@@ -15,17 +16,21 @@ interface UpdateCategoryRequest {
   hidden?: boolean
 }
 
+const token = cookies().get('@mana-token')?.value
+const headers = {
+  Authorization: `Bearer ${token}`,
+  Accept: 'application/json',
+  'Content-Type': 'application/json'
+}
+
 export async function createCategory({
   description,
   nature,
   belongs_to
 }: CreateCategoryRequest) {
-  await fetch('http://localhost:3333/categories', {
+  await fetch(`${process.env.API_BASE_URL}/categories`, {
     method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json'
-    },
+    headers,
     body: JSON.stringify({
       description,
       nature,
@@ -37,12 +42,9 @@ export async function createCategory({
 }
 
 export async function updateCategory(id: string, data: UpdateCategoryRequest) {
-  await fetch(`http://localhost:3333/categories/update/${id}`, {
+  await fetch(`${process.env.API_BASE_URL}/categories/update/${id}`, {
     method: 'PATCH',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json'
-    },
+    headers,
     body: JSON.stringify(data),
     cache: 'no-store'
   })

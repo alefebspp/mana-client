@@ -1,4 +1,11 @@
-import { LayoutDashboard, Plus, AlignJustify, Archive } from 'lucide-react'
+import {
+  LayoutDashboard,
+  AlignJustify,
+  Archive,
+  Component,
+  Church,
+  Plus
+} from 'lucide-react'
 import { NavBarSectionProps } from '@/components/NavBar/NavBarSection'
 
 const navBarSections: NavBarSectionProps[] = [
@@ -9,10 +16,29 @@ const navBarSections: NavBarSectionProps[] = [
   },
   {
     label: 'Categorias',
+    icon: Component,
     path: '/categories',
     childrenSections: [
       { path: '', label: 'Lista', icon: AlignJustify },
-      { path: '/create', label: 'Novo', icon: Plus },
+      {
+        path: '/categories?showModal=y',
+        label: 'Criar',
+        openModal: true
+      },
+      { path: '/excluded', label: 'Excluídas', icon: Archive }
+    ]
+  },
+  {
+    label: 'Igrejas',
+    icon: Church,
+    path: '/churchs',
+    childrenSections: [
+      { path: '', label: 'Lista', icon: AlignJustify },
+      {
+        path: '/create',
+        label: 'Criar',
+        icon: Plus
+      },
       { path: '/excluded', label: 'Excluídas', icon: Archive }
     ]
   }

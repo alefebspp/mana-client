@@ -23,11 +23,13 @@ const schema = z.object({
 interface Props {
   categories: Category[]
   categoryToUpdate?: Category
+  atModal?: boolean
 }
 
 export default function CreateCategoryForm({
   categories,
-  categoryToUpdate
+  categoryToUpdate,
+  atModal
 }: Props) {
   const { push } = useRouter()
 
@@ -52,6 +54,9 @@ export default function CreateCategoryForm({
         return push('/categories')
       }
       await createCategory(formData)
+      if (atModal) {
+        push('/categories')
+      }
       reset()
     } catch (error) {
       console.log(error)
@@ -126,7 +131,7 @@ export default function CreateCategoryForm({
       </div>
 
       <Button isLoading={isSubmitting} className="w-full  md:w-[20rem]">
-        {categoryToUpdate ? 'Atualizar categoria' : 'Criar'}
+        {categoryToUpdate ? 'Atualizar' : 'Criar'}
       </Button>
     </form>
   )

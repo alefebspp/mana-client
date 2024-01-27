@@ -73,7 +73,7 @@ const CategoriesTable = ({ baseCategories, showHidden }: Props) => {
                           </Link>
                           <Link
                             id={`update-${code.split('.').join('-')}`}
-                            href={`/categories/${id}`}
+                            href={`/categories?showModal=y&ci=${id}`}
                           >
                             <PenSquare className="w-3 h-3 xl:w-4 xl:h-4 cursor-pointer hover:text-purple-primary" />
                           </Link>

@@ -8,3 +8,11 @@ export interface Category {
   belongs_to: string | null
   hidden: boolean
 }
+
+export interface Church {
+  id: string
+  name: string
+  leader: string
+  email: string
+  cnpj: string
+}
