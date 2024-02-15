@@ -8,16 +8,31 @@ import {
 } from 'lucide-react'
 import { NavBarSectionProps } from '@/components/NavBar/NavBarSection'
 
-const navBarSections: NavBarSectionProps[] = [
-  {
+export const sectionsInfos = {
+  home: {
     label: 'Início',
-    icon: LayoutDashboard,
     path: '/home'
   },
-  {
+  categories: {
     label: 'Categorias',
+    path: '/categories'
+  },
+  churchs: {
+    label: 'Igrejas',
+    path: '/churchs'
+  }
+}
+
+const navBarSections: NavBarSectionProps[] = [
+  {
+    label: sectionsInfos.home.label,
+    icon: LayoutDashboard,
+    path: sectionsInfos.home.path
+  },
+  {
+    label: sectionsInfos.categories.label,
     icon: Component,
-    path: '/categories',
+    path: sectionsInfos.categories.path,
     childrenSections: [
       { path: '', label: 'Lista', icon: AlignJustify },
       {
@@ -29,9 +44,9 @@ const navBarSections: NavBarSectionProps[] = [
     ]
   },
   {
-    label: 'Igrejas',
+    label: sectionsInfos.churchs.label,
     icon: Church,
-    path: '/churchs',
+    path: sectionsInfos.churchs.path,
     childrenSections: [
       { path: '', label: 'Lista', icon: AlignJustify },
       {

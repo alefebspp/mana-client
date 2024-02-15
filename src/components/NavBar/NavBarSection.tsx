@@ -10,11 +10,13 @@ export interface NavBarSectionProps {
   icon?: ElementType
   label: string
   path: string
+  churchRequired?: boolean
   childrenSections?: {
     path: string
     label: string
     icon?: ElementType
     openModal?: boolean
+    churchRequired?: boolean
   }[]
 }
 

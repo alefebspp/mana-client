@@ -16,3 +16,11 @@ export interface Church {
   email: string
   cnpj: string
 }
+
+export interface ChurchEvent {
+  id: string
+  name: string
+  week_day: number
+  hour: string
+  church_id: string
+}

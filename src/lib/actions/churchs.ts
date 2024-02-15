@@ -54,3 +54,7 @@ export async function updateChurch(id: string, data: UpdateChurchRequest) {
 
   revalidatePath('/churchs')
 }
+
+export async function setSelectedChurchIdCookie(churchId: string) {
+  cookies().set('@selected-church-id', churchId)
+}

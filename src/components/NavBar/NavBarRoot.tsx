@@ -22,7 +22,7 @@ function NavBarRoot({ children, hidden, closeNav }: Props) {
           !hidden
       })}
     >
-      <div className="w-full py-sm pl-4">
+      <div className="w-full py-2 pl-2">
         <Button
           aria-label="Close nav button"
           onClick={handleCloseNav}
